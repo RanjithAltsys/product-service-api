@@ -1,2 +1,2 @@
 # product-service-api
-Products microservice
+Products microservices
