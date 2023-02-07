@@ -34,6 +34,14 @@ class ProductRepository {
         const products = await ProductModel.find().where('_id').in(selectedIds.map(_id => _id)).exec();
         return products;
     }
+
+    async getProductListBySearch(searchKey) {
+        console.log("++++searchKey++++++",searchKey);
+        const query = { name: { $regex: searchKey, $options: 'i' } };
+        let productList = await ProductModel.find(query);
+        productList = productList.map((product) => { return product._id });
+        return productList.length > 0 ? productList : [];    
+    }
     
 }
 

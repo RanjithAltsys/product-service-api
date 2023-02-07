@@ -20,8 +20,13 @@ class SubCategoryService {
             subCategorys: subCategoryResult
         })
     }
- 
 
+    async getSubCategoryBySearch(queryInputs){
+        const subCategoryResult = await this.repository.getSubCategoryListBySearch(queryInputs);
+        return FormateData({
+            subCategorys: subCategoryResult
+        })
+    }
 }
 
 module.exports = SubCategoryService;

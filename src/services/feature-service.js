@@ -27,8 +27,20 @@ class FeatureService {
             features: featureResult
         })
     }
- 
 
+    async getFeatureListBySearch(searchKey){
+        const featureResult = await this.repository.getFeatureListBySearch(searchKey);
+        return FormateData({
+            products: featureResult
+        })
+    }
+
+    async getFeatureListBySubCategory(subCategoryids){
+        const subCategoryResult = await this.repository.getFeatureListBySubCategory(subCategoryids);
+        return FormateData({
+            products: subCategoryResult
+        })
+    }
 }
 
 module.exports = FeatureService;
