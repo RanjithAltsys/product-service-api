@@ -29,4 +29,5 @@ module.exports = (app) => {
   app.get("/api/product",productCtrl.getProducts);
   app.get("/api/product/list/:id",productCtrl.getProductsBySubCategory);
   app.get("/api/product/:id",productCtrl.getProductsById);
+  app.get("/api/products/search",productCtrl.getProductsBySearch);
 };

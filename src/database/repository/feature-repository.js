@@ -30,6 +30,20 @@ class FeatureRepository {
         return featureList.length > 0 ? featureList : [];   
     }
 
+    async getFeatureListBySearch(searchKey) {
+        console.log("++++searchKey++++++",searchKey);
+        const query = { name: { $regex: searchKey, $options: 'i' } };
+        let featureList = await FeatureModel.find(query);
+        var productsList = featureList.map((feature) => { return feature.productId });
+        return productsList.length > 0 ? productsList : [];    
+    }
+
+    async getFeatureListBySubCategory(subCategoryIds) {
+        console.log("++++subCategoryIds++++++",subCategoryIds);
+        let featureList = await FeatureModel.find().where('subCategoryId').in(subCategoryIds).exec();
+        var productsList = featureList.map((feature) => { return feature.productId });
+        return productsList.length > 0 ? productsList : [];    
+    }
     
 }
 

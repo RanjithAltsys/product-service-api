@@ -18,6 +18,15 @@ class SubCategoryRepository {
      async subCategoryByOemId({ oemId, categoryId }){
         return await SubCategoryModel.find({ oemId, categoryId });
     }
+
+    async getSubCategoryListBySearch(searchKey) {
+        console.log("++++searchKey++++++",searchKey);
+        const query = { name: { $regex: searchKey, $options: 'i' } };
+        let subCategoryList = await SubCategoryModel.find(query);
+        subCategoryList = subCategoryList.map((category) => { return category._id });
+        console.log("+++++subCategoryList+++++++",subCategoryList);
+        return subCategoryList.length > 0 ? subCategoryList : [];    
+    }
     
 }
 

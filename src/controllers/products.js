@@ -46,4 +46,15 @@ module.exports = {
         }
     },
 
+    getProductsBySearch: async (req,res) => {
+        const service = new ProductService();
+        try {
+            console.log("+++INPUT+++++",req.query);
+            const { data } = await service.getProductsBySearch(req.query['search']);
+            return res.status(200).json(data);
+        } catch (error) {
+            return res.status(404).json({ error });
+        }
+    },
+
 };
