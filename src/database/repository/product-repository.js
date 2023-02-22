@@ -5,10 +5,10 @@ const { ProductModel } = require("../models");
 class ProductRepository {
 
 
-    async createProduct({ name, description, createdBy, updatedBy }){
+    async createProduct({ name, description,price, createdBy, updatedBy }){
 
         const product = new ProductModel({
-            name, description, createdBy, updatedBy
+            name, description, createdBy, updatedBy, price
         })
 
         const productResult = await product.save();

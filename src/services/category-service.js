@@ -1,4 +1,4 @@
-const { CategoryRepository } = require("../database");
+const { CategoryRepository, SubCategoryRepository } = require("../database");
 const { FormateData } = require("../utils");
 
 // All Business logic will be here
@@ -6,6 +6,7 @@ class CategoryService {
 
     constructor(){
         this.repository = new CategoryRepository();
+        this.subCategoryRepository = new SubCategoryRepository();
     }
     
 
@@ -16,10 +17,15 @@ class CategoryService {
     }
     
     async getCategorys(){
-        const categoryResult = await this.repository.categorys();
+        let  categoryResult = await this.repository.categorys();
+        categoryResult = await Promise.all(categoryResult.map(async(data) => {
+            let subCategories = await this.subCategoryRepository.subCategoryByCategoryId(data._id);
+            return data;
+        }));
+
         return FormateData({
             categorys: categoryResult
-           })
+        })
 
     }
  

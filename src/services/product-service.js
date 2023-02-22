@@ -31,7 +31,7 @@ class ProductService {
     async getProductsBySubCategory(subCategoryId){
         let productIds = await this.featureRepository.getFeatureProductsBySubCategory(subCategoryId);
         const products = await this.repository.findSelectedProducts(productIds)
-        return FormateData(products);
+        return FormateData({products: products });
     }
 
     async getProductsById(productId){

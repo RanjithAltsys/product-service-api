@@ -2,13 +2,12 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const ProductSchema = new Schema({
+const ProductFamilySchema = new Schema({
     name: String,
     description: String,
     createdBy: String,
     updatedBy: String,
-    price: Number
 
 },{ timestamps: true});
 
-module.exports =  mongoose.model('products', ProductSchema);
+module.exports =  mongoose.model('productsFamily', ProductFamilySchema);

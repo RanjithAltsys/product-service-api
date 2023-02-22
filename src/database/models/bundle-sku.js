@@ -2,14 +2,14 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const SubCategorySchema = new Schema({
+const BundleSkuSchema = new Schema({
     name: String,
     description: String,
-    2: {
+    productFamilyId: [{
         type: Schema.Types.ObjectId,
-        ref: 'categorys',
+        ref: 'productsFamily',
         required: true
-    },
+    }],
     oemId: {
         type: Schema.Types.ObjectId,
         ref: 'oems',
@@ -20,4 +20,4 @@ const SubCategorySchema = new Schema({
 
 },{ timestamps: true});
 
-module.exports =  mongoose.model('subcategorys', SubCategorySchema);
+module.exports =  mongoose.model('bundleSku', BundleSkuSchema);

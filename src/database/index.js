@@ -6,4 +6,6 @@ module.exports = {
     Oemepository: require('./repository/oem-repository'),
     SubCategoryRepository: require('./repository/sub-category-repository'),
     FeatureRepository: require('./repository/feature-repository'),
+    ProductFamilyRepository: require('./repository/product-family-repository'),
+    BundleSkuRepository: require('./repository/bundle-sku-repository'),
 }

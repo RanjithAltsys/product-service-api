@@ -3,6 +3,8 @@ const categoryCtrl = require('../controllers/category');
 const oemCtrl = require('../controllers/oem');
 const subCategoryCtrl = require('../controllers/sub-category');
 const featureCtrl = require('../controllers/feature');
+const productFamilyCtrl = require('../controllers/product-family');
+const bundleSkuCtrl = require('../controllers/bundle-sku');
 
 module.exports = (app) => {
   //Health Check
@@ -30,4 +32,15 @@ module.exports = (app) => {
   app.get("/api/product/list/:id",productCtrl.getProductsBySubCategory);
   app.get("/api/product/:id",productCtrl.getProductsById);
   app.get("/api/products/search",productCtrl.getProductsBySearch);
+
+  //Poducts Family 
+  app.post("/api/product-family",productFamilyCtrl.create);
+  app.get("/api/product-family",productFamilyCtrl.getProductsFamily);
+  app.post("/api/product-family-license",productFamilyCtrl.addProductToProductFamily);
+  app.get("/api/product-family/:id",productFamilyCtrl.getProductsFamilyById);
+  app.post("/api/product-family-feature",productFamilyCtrl.addFeatureToProductFamily);
+
+  //Bundle SKU 
+  app.post("/api/bundle",bundleSkuCtrl.create);
+  app.get("/api/bundle/:id", bundleSkuCtrl.getBundleById);
 };

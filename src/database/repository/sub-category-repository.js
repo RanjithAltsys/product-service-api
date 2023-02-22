@@ -24,8 +24,11 @@ class SubCategoryRepository {
         const query = { name: { $regex: searchKey, $options: 'i' } };
         let subCategoryList = await SubCategoryModel.find(query);
         subCategoryList = subCategoryList.map((category) => { return category._id });
-        console.log("+++++subCategoryList+++++++",subCategoryList);
         return subCategoryList.length > 0 ? subCategoryList : [];    
+    }
+
+    async subCategoryByCategoryId(categoryId){
+        return await SubCategoryModel.find({ categoryId: mongoose.Types.ObjectId(categoryId)});
     }
     
 }
