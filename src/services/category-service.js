@@ -18,15 +18,17 @@ class CategoryService {
     
     async getCategorys(){
         let  categoryResult = await this.repository.categorys();
+
         categoryResult = await Promise.all(categoryResult.map(async(data) => {
-            let subCategories = await this.subCategoryRepository.subCategoryByCategoryId(data._id);
-            return data;
+            let categoryItem = Object.assign({}, data._doc);
+            categoryItem.subCategories = await this.subCategoryRepository.subCategoryByCategoryId(data._id);
+            return categoryItem;
         }));
 
         return FormateData({
             categorys: categoryResult
         })
-
+        
     }
  
 

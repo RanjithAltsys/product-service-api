@@ -16,7 +16,7 @@ class SubCategoryRepository {
     }
 
      async subCategoryByOemId({ oemId, categoryId }){
-        return await SubCategoryModel.find({ oemId, categoryId });
+        return await SubCategoryModel.find({ oemId:  mongoose.Types.ObjectId(oemId), categoryId:  mongoose.Types.ObjectId(categoryId) });
     }
 
     async getSubCategoryListBySearch(searchKey) {
