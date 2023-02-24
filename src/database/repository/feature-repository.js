@@ -39,10 +39,25 @@ class FeatureRepository {
 
     async getFeatureListBySubCategory(subCategoryIds) {
         let featureList = await FeatureModel.find().where('subCategoryId').in(subCategoryIds).exec();
+        this.getSubCategoryProductCounts(featureList);
         var productsList = featureList.map((feature) => { return feature.productId });
         return productsList.length > 0 ? productsList : [];    
     }
-    
+
+    async getSubCategoryProductCounts(payload) {
+      let categoryMap = {};
+        for (let i = 0; i < payload.length; i++) {
+            if (payload[i].productId) {
+                if (categoryMap[payload[i].subCategoryId] == undefined) {
+                    categoryMap[payload[i].subCategoryId] = new Set([payload[i].productId]);
+                }
+                else {
+                    let products = categoryMap[payload[i].subCategoryId];
+                    products.add(payload[i].productId);
+                }
+            }
+        }
+    }
 }
 
 module.exports = FeatureRepository;

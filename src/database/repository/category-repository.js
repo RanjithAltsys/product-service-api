@@ -19,6 +19,10 @@ class CategoryRepository {
      async categorys(){
         return await CategoryModel.find();
     }
+
+    async getCategoryById(id) {
+        return await CategoryModel.findById(id);
+    }
     
 }
 

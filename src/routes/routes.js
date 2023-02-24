@@ -21,6 +21,7 @@ module.exports = (app) => {
   //Sub category
   app.post("/api/sub-category",subCategoryCtrl.create);
   app.post("/api/sub-category/list",subCategoryCtrl.getByOemId);
+  app.get("/api/sub-category/:id",subCategoryCtrl.getByCategoryId);
 
   //Features
   app.post("/api/feature",featureCtrl.create);
@@ -32,6 +33,7 @@ module.exports = (app) => {
   app.get("/api/product/list/:id",productCtrl.getProductsBySubCategory);
   app.get("/api/product/:id",productCtrl.getProductsById);
   app.get("/api/products/search",productCtrl.getProductsBySearch);
+  app.post("/api/products",productCtrl.getProductsBySubCategoryIds);
 
   //Poducts Family 
   app.post("/api/product-family",productFamilyCtrl.create);

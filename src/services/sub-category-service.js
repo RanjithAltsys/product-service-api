@@ -21,6 +21,15 @@ class SubCategoryService {
         })
     }
 
+    async getSubCategoryByCategoryId(queryInputs){
+        const subCategoryResult = await this.repository.subCategoryByCategoryId(queryInputs);
+
+        return FormateData({
+            subCategories: subCategoryResult
+        })
+    }
+
+
     async getSubCategoryBySearch(queryInputs){
         const subCategoryResult = await this.repository.getSubCategoryListBySearch(queryInputs);
         return FormateData({
