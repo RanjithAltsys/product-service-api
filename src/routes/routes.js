@@ -5,6 +5,7 @@ const subCategoryCtrl = require('../controllers/sub-category');
 const featureCtrl = require('../controllers/feature');
 const productFamilyCtrl = require('../controllers/product-family');
 const bundleSkuCtrl = require('../controllers/bundle-sku');
+const constantCtrl = require('../controllers/constants');
 
 module.exports = (app) => {
   //Health Check
@@ -45,4 +46,7 @@ module.exports = (app) => {
   //Bundle SKU 
   app.post("/api/bundle",bundleSkuCtrl.create);
   app.get("/api/bundle/:id", bundleSkuCtrl.getBundleById);
+
+  //Constants
+  app.get("/api/parent-categories", constantCtrl.getAllParentCategorys);
 };
