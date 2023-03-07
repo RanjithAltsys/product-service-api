@@ -7,6 +7,7 @@ const CategorySchema = new Schema({
     description: String,
     createdBy: String,
     updatedBy: String,
+    parentCategoryId: String
 
 },{ timestamps: true});
 

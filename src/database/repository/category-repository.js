@@ -5,10 +5,10 @@ const { CategoryModel } = require("../models");
 class CategoryRepository {
 
 
-    async createCategory({ name, description, createdBy, updatedBy }){
+    async createCategory({ name, description, createdBy, updatedBy , parentCategoryId = null}){
 
         const category = new CategoryModel({
-            name, description, createdBy, updatedBy
+            name, description, createdBy, updatedBy, parentCategoryId
         })
 
         const categoryResult = await category.save();
@@ -16,7 +16,7 @@ class CategoryRepository {
     }
 
 
-     async categorys(){
+    async categorys(){
         return await CategoryModel.find();
     }
 
