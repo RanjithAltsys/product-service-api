@@ -17,6 +17,15 @@ const FeatureSchema = new Schema({
         ref: 'products',
         required: false
     },
+    productVariantId: {
+        type: Schema.Types.ObjectId,
+        ref: 'productsVariant',
+        required: false
+    },
+    properties: [{
+        type: Object,
+        require: false
+    }]
 
 },{ timestamps: true});
 

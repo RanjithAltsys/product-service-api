@@ -8,4 +8,5 @@ module.exports = {
     FeatureRepository: require('./repository/feature-repository'),
     ProductFamilyRepository: require('./repository/product-family-repository'),
     BundleSkuRepository: require('./repository/bundle-sku-repository'),
+    ProductVariantRepository: require('./repository/product-variants-repository'),
 }

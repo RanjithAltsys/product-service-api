@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
-const { FeatureModel } = require("../models");
+const { FeatureModel,ProductVariantModel } = require("../models");
 
 //Dealing with data base operations
 class FeatureRepository {
 
 
-    async createFeature({ name, description, createdBy, updatedBy,subCategoryId ,productId }){
+    async createFeature({ name, description, createdBy, updatedBy,subCategoryId ,productId, productVariantId, properties }){
 
         const feature = new FeatureModel({
-            name, description, createdBy, updatedBy, subCategoryId, productId
+            name, description, createdBy, updatedBy, subCategoryId, productId, productVariantId, properties
         })
 
         const featureresult = await feature.save();
@@ -42,6 +42,17 @@ class FeatureRepository {
         this.getSubCategoryProductCounts(featureList);
         var productsList = featureList.map((feature) => { return feature.productId });
         return productsList.length > 0 ? productsList : [];    
+    }
+
+    async getFeatureListByProductVariantId(productsVariantId) {
+        let productsVariants =  await FeatureModel.aggregate([
+            {
+                $match: {
+                    "productVariantId": productsVariantId
+                }
+             }
+         ]).exec();
+        return productsVariants.length > 0 ? productsVariants : [];    
     }
 
     async getSubCategoryProductCounts(payload) {

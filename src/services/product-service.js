@@ -3,6 +3,7 @@ const { FormateData } = require("../utils");
 const CategoryService = require("./category-service");
 const FeatureService = require("./feature-service");
 const SubCategoryService = require("./sub-category-service");
+const ProductVariantService = require("./product-variant-service");
 
 // All Business logic will be here
 class ProductService {
@@ -13,6 +14,7 @@ class ProductService {
         this.subCategoryService = new SubCategoryService();
         this.featureService = new FeatureService();
         this.categoryService = new CategoryService();
+        this.productVariantService = new ProductVariantService();
     }
 
     async createProduct(productInputs){
@@ -51,10 +53,22 @@ class ProductService {
     }
 
 
-    async getProductsById(productId){
-        const products = await this.repository.findById(productId);
-        const featureList = await this.featureRepository.getFeatureListByProduct(productId);
-        return FormateData({products: products , featureList: featureList})
+    async getProductsById(productId) {
+            const products = await this.repository.findById(productId);
+            const productVariants = await this.productVariantService.findByProductId(productId);
+            let productFeatureList = [];
+            let productVariantFeatureList = [];
+            if (productVariants?.data && productVariants?.data?.productVariants?.length > 0) {
+                productVariantFeatureList = await this.featureService.getFeatureListByProductVariantIds(productVariants.data.productVariants);
+                if(productVariantFeatureList?.data?.productVariants?.length > 0) {
+                    productVariantFeatureList = productVariantFeatureList?.data?.productVariants;
+                }
+                else productVariantFeatureList = []
+            }
+            else {
+                productFeatureList = await this.featureRepository.getFeatureListByProduct(productId);
+            }
+            return FormateData({ products: products, productFeatureList: productFeatureList, productVariants: productVariantFeatureList })
     }
 
     async getProductsBySearch(searchKey){

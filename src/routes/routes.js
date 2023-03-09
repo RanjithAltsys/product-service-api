@@ -1,4 +1,5 @@
 const productCtrl = require('../controllers/products');
+const productVariantCtrl = require('../controllers/product-variant');
 const categoryCtrl = require('../controllers/category');
 const oemCtrl = require('../controllers/oem');
 const subCategoryCtrl = require('../controllers/sub-category');
@@ -41,6 +42,10 @@ module.exports = (app) => {
   app.get("/api/product/:id", productCtrl.getProductsById);
   app.get("/api/products/search", productCtrl.getProductsBySearch);
   app.post("/api/products", productCtrl.getProductsBySubCategoryIds);
+
+  //Product Variant
+  app.post("/api/product-variant", productVariantCtrl.create);
+
 
   //Poducts Family 
   app.post("/api/product-family", productFamilyCtrl.create);

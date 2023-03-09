@@ -8,4 +8,5 @@ module.exports = {
     ProductFamilyLicenseMapModel: require('./product-family-license-map'),
     ProductFamilyFeatureMapModel: require('./product-family-feature-map'),
     BundleSkuModel: require('./bundle-sku'),
+    ProductVariantModel: require('./product-variant'),
 }

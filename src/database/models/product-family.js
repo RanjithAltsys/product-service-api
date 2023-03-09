@@ -7,7 +7,6 @@ const ProductFamilySchema = new Schema({
     description: String,
     createdBy: String,
     updatedBy: String,
-
 },{ timestamps: true});
 
 module.exports =  mongoose.model('productsFamily', ProductFamilySchema);

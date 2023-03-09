@@ -35,6 +35,21 @@ class FeatureService {
         })
     }
 
+    async getFeatureListByProductVariantIds(productVariants){
+        let productVariantsResult = [];
+        for (const data of productVariants) {
+            const featureList = await this.repository.getFeatureListByProductVariantId(data._id);
+            productVariantsResult.push({
+              ...data,
+              featureList: featureList
+            });
+          }
+        
+        return FormateData({
+            productVariants: productVariantsResult
+        })
+    }
+
     async getFeatureListBySubCategory(subCategoryids){
         const subCategoryResult = await this.repository.getFeatureListBySubCategory(subCategoryids);
         return FormateData({
