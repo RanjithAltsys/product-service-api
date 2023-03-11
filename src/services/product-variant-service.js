@@ -28,6 +28,12 @@ class ProductVariantService {
         })
     }
 
+    async findByProductIdsByIds(productVariantIds) {
+        const productsResult = await this.repository.findByProductIdsByIds(productVariantIds);
+        return FormateData({
+            products: productsResult
+        })
+    }
 }
 
 module.exports = ProductVariantService;

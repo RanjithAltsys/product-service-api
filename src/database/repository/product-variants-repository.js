@@ -30,6 +30,12 @@ class ProductVariantRepository {
         return productsVariants;
     }
 
+    async findByProductIdsByIds(productVariantIds) {
+        let productsVariants = await ProductVariantModel.find().where('_id').in(productVariantIds).exec();
+        let products = productsVariants.map((data) => { return data.productId })
+        return products.length > 0 ? products : [];  ;
+    }
+
 }
 
 module.exports = ProductVariantRepository;

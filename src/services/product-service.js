@@ -47,9 +47,12 @@ class ProductService {
     }
 
     async getProductsBySubCategoryIds(subCategoryIds) {
-        let productIds = await this.featureRepository.getFeatureListBySubCategory(subCategoryIds);
-        const products = await this.repository.findSelectedProducts(productIds)
-        return FormateData({products: products });
+        let products = await this.featureRepository.getFeatureListBySubCategory(subCategoryIds);
+        let productVariantIds = await this.featureRepository.getProductVariantsBySubCategory(subCategoryIds);
+        const productsIdsNew = await this.productVariantService.findByProductIdsByIds(productVariantIds);
+        products = [...products,...productsIdsNew.data.products];
+        let productsList = await this.repository.findSelectedProducts(products);
+        return FormateData({ products: productsList });
     }
 
 

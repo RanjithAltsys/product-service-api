@@ -25,7 +25,12 @@ const FeatureSchema = new Schema({
     properties: [{
         type: Object,
         require: false
-    }]
+    }],
+    isHighlight: {
+        type: Boolean,
+        default: false,
+        require: true
+    }
 
 },{ timestamps: true});
 

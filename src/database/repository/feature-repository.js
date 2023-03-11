@@ -5,10 +5,10 @@ const { FeatureModel,ProductVariantModel } = require("../models");
 class FeatureRepository {
 
 
-    async createFeature({ name, description, createdBy, updatedBy,subCategoryId ,productId, productVariantId, properties }){
+    async createFeature({ name, description, createdBy, updatedBy,subCategoryId ,productId, productVariantId, properties, isHighlight }){
 
         const feature = new FeatureModel({
-            name, description, createdBy, updatedBy, subCategoryId, productId, productVariantId, properties
+            name, description, createdBy, updatedBy, subCategoryId, productId, productVariantId, properties, isHighlight
         })
 
         const featureresult = await feature.save();
@@ -39,10 +39,24 @@ class FeatureRepository {
 
     async getFeatureListBySubCategory(subCategoryIds) {
         let featureList = await FeatureModel.find().where('subCategoryId').in(subCategoryIds).exec();
-        this.getSubCategoryProductCounts(featureList);
-        var productsList = featureList.map((feature) => { return feature.productId });
+        // this.getSubCategoryProductCounts(featureList);
+        var productsList = featureList.filter((feature) => {
+            if(feature.productId) return feature.productId 
+        });
         return productsList.length > 0 ? productsList : [];    
     }
+
+    async getProductVariantsBySubCategory(subCategoryIds) {
+        let featureList = await FeatureModel.find().where('subCategoryId').in(subCategoryIds).exec();
+        let productVariantIdList = [];
+        featureList.forEach(feature => {
+            if(feature.productVariantId) {
+                productVariantIdList.push(feature.productVariantId);
+            }
+        });
+        return productVariantIdList.length > 0 ? productVariantIdList : [];    
+    }
+
 
     async getFeatureListByProductVariantId(productsVariantId) {
         let productsVariants =  await FeatureModel.aggregate([
