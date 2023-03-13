@@ -33,6 +33,10 @@ class SubCategoryRepository {
     async subCategoryByCategoryId(categoryId){
         return await SubCategoryModel.find({ categoryId: mongoose.Types.ObjectId(categoryId)});
     }
+
+    async categoryBySubCategoryId(subSubCategoryId ){
+        return await SubCategoryModel.findOne({ _id:  mongoose.Types.ObjectId(subSubCategoryId)});
+    }
     
 }
 

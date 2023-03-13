@@ -99,6 +99,13 @@ class ProductService {
         })
     }
 
+    async getProductsByOemIds(oemIds){
+        const products = await this.repository.getProductsByOemIds(oemIds);
+        return FormateData({
+            products: products 
+        })
+    }
+
 }
 
 module.exports = ProductService;

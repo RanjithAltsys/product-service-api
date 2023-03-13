@@ -42,6 +42,7 @@ module.exports = (app) => {
   app.get("/api/product/:id", productCtrl.getProductsById);
   app.get("/api/products/search", productCtrl.getProductsBySearch);
   app.post("/api/products", productCtrl.getProductsBySubCategoryIds);
+  app.post("/api/products/oems", productCtrl.getProductsByOemIds);
 
   //Product Variant
   app.post("/api/product-variant", productVariantCtrl.create);

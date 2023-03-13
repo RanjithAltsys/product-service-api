@@ -44,8 +44,12 @@ const ProductSchema = new Schema({
     review: {
         type: Number,
         require: false
+    },
+    oemId: {
+        type: Schema.Types.ObjectId,
+        ref: 'oems',
+        required: false
     }
-
 }, { timestamps: true });
 
 module.exports = mongoose.model('products', ProductSchema);

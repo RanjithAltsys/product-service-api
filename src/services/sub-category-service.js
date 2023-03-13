@@ -1,11 +1,13 @@
 const { SubCategoryRepository } = require("../database");
 const { FormateData } = require("../utils");
+const CategoryService = require("./category-service");
 
 // All Business logic will be here
 class SubCategoryService {
 
     constructor(){
         this.repository = new SubCategoryRepository();
+        this.categoryService = new CategoryService();
     }
     
     async createSubCategory(subCategoryInputs){
@@ -22,8 +24,16 @@ class SubCategoryService {
     }
 
     async getSubCategoryByCategoryId(queryInputs){
-        const subCategoryResult = await this.repository.subCategoryByCategoryId(queryInputs);
-
+        let categoryFound = await this.categoryService.getCategoryById(queryInputs);
+        let subCategoryResult = [];
+        if(categoryFound?.data?.category != null)
+          subCategoryResult = await this.repository.subCategoryByCategoryId(queryInputs);
+        else {
+           let subCategory = await this.repository.categoryBySubCategoryId(queryInputs);
+           queryInputs = subCategory?.categoryId;
+           subCategoryResult = await this.repository.subCategoryByCategoryId(queryInputs);
+        }
+        
         return FormateData({
             subCategories: subCategoryResult
         })

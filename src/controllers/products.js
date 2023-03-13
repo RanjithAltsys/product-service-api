@@ -67,4 +67,14 @@ module.exports = {
         }
     },
 
+    getProductsByOemIds: async (req,res) => {
+        const service = new ProductService();
+        try {
+            const { data } = await service.getProductsByOemIds(req.body?.oemIds);
+            return res.status(200).json(data);
+        } catch (error) {
+            return res.status(404).json({ error });
+        }
+    },
+
 };

@@ -5,10 +5,10 @@ const { ProductModel } = require("../models");
 class ProductRepository {
 
 
-    async createProduct({ name, description,price, createdBy, updatedBy }){
+    async createProduct({ name, description,price, createdBy, updatedBy, oemId }){
 
         const product = new ProductModel({
-            name, description, createdBy, updatedBy, price
+            name, description, createdBy, updatedBy, price, oemId
         })
 
         const productResult = await product.save();
@@ -41,6 +41,11 @@ class ProductRepository {
         let productList = await ProductModel.find(query);
         productList = productList.map((product) => { return product._id });
         return productList.length > 0 ? productList : [];    
+    }
+
+    async getProductsByOemIds(oemIds){
+        const products = await ProductModel.find().where('oemId').in(oemIds.map(_id => _id)).exec();
+        return products;
     }
     
 }
